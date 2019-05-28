@@ -1,0 +1,177 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<div class="box box-default">
+	<div class="box-header with-border" align="center">
+		<div class="container col-md-12" align="center">
+			<c:if test="${msg==1}">
+				<div class="col-md-12 container" align="center"
+					style="text-align: center;">
+					<div class="alert alert-success alert-dismissible">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">×</button>
+						<h4>
+							<i class="icon fa fa-check"></i> Correcto!
+						</h4>
+						Usuario existe.
+					</div>
+				</div>
+			</c:if>
+			<c:if test="${msg==0}">
+				<div class="col-md-12 container" align="center"
+					style="text-align: center;">
+					<div class="alert alert-danger alert-dismissible">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">×</button>
+						<h4>
+							<i class="icon fa fa-ban"></i> Error!
+						</h4>
+						Usuario no existe
+					</div>
+				</div>
+			</c:if>
+			<c:if test="${msg1==1}">
+				<div class="col-md-12 container" align="center"
+					style="text-align: center;">
+					<div class="alert alert-success alert-dismissible">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">×</button>
+						<h4>
+							<i class="icon fa fa-check"></i> Correcto!
+						</h4>
+						Usuario Modificar.
+					</div>
+				</div>
+			</c:if>
+			<c:if test="${msg1==0}">
+				<div class="col-md-12 container" align="center"
+					style="text-align: center;">
+					<div class="alert alert-danger alert-dismissible">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">×</button>
+						<h4>
+							<i class="icon fa fa-ban"></i> Error!
+						</h4>
+						Usuario no se modifico
+					</div>
+				</div>
+			</c:if>
+			<form action="Smodificar" method="post">
+				<div class="col-md-12">
+					<input type="hidden" value="buscar" name="evento">
+					<div class="form-group">
+						<label>Buscar por Cip</label> <input type="text"
+							class="form-control pull-right" id="" value="" name="bcip">
+					</div>
+					<!-- /.form-group -->
+					<button type="submit" class="btn btn-info">BUSCAR</button>
+					<!-- /.form-group -->
+				</div>
+			</form>
+
+			<form action="Smodificar" method="post">
+				<input type="hidden" value="modificar" name="evento"> <input
+					type="hidden" class="form-control pull-right" id=""
+					value="${objusu.idusuario}" name="txtid">
+				<div class="box-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>CIP</label> <input type="text"
+									class="form-control pull-right" id="" value="${objusu.cip}"
+									name="txtcip" required="required">
+							</div>
+							<!-- /.form-group -->
+							<div class="form-group">
+								<label>PASSWORD</label> <input type="password"
+									class="form-control pull-right" id=""
+									value="${objusu.password}" name="txtpass" required="required">
+							</div>
+							<div class="form-group">
+								<label>CONFIRMAR PASSWORD</label> <input type="password"
+									class="form-control pull-right" id=""
+									value="${objusu.password}" name="txtpass2" required="required">
+							</div>
+							<div class="form-group">
+								<label>GRADO</label> <select id="grado" name="txtgrado" class="form-control" required="required">
+                                    <option  value="" >Seleccione</option>
+                                    <option  value="25">CRNL PNP</option>
+                                    <option  value="24">CRNL PNP</option>
+                                    <option  value="23">CRNL PNP</option>
+                                    <option  value="22">CRNL PNP</option>
+                                    <option  value="21">CRNL PNP</option>
+									<option  value="20">CMDTE PNP</option>
+									<option  value="19">MAY PNP</option>
+									<option  value="18">SS PNP</option>
+									<option  value="17">SB PNP</option>
+									<option  value="16">ST1 PNP</option>
+									<option  value="15">ST2 PNP</option>
+									<option  value="14">ST3 PNP</option>
+									<option  value="13">S1 PNP</option>
+									<option  value="12">S2 PNP</option>
+									<option  value="11">CRNL PNP</option>
+									<option  value="10">CMDTE PNP</option>
+									<option  value="9">MAY PNP</option>
+									<option  value="8">SS PNP</option>
+									<option  value="7">SB PNP</option>
+									<option  value="6">ST1 PNP</option>
+									<option  value="5">ST2 PNP</option>
+									<option  value="4">ST3 PNP</option>
+									<option  value="3">S1 PNP</option>
+									<option  value="2">S2 PNP</option>
+									<option  value="1">S3 PNP</option>
+
+									</select>
+							</div>
+							<!-- /.form-group -->
+						</div>
+						<!-- /.col -->
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>APELLIDO PATERNO</label> <input type="text"
+									class="form-control pull-right" id="" value="${objusu.apepat}"
+									name="txtapepat" required="required">
+							</div>
+							<!-- /.form-group -->
+							<div class="form-group">
+								<label>APELLIDO MATERNO</label> <input type="text"
+									class="form-control pull-right" id="" value="${objusu.apemat}"
+									name="txtapemat" required="required">
+							</div>
+							<div class="form-group">
+								<label>NOMBRES</label> <input type="text"
+									class="form-control pull-right" id="" value="${objusu.nombres}"
+									name="txtnom" required="required">
+							</div>
+							<div class="form-group">
+								<label>ESTADO</label> <select class="form-control select2"
+									id="estado" style="width: 100%;" name="txtest"
+									required="required">
+									<option value="">SELECCIONE</option>
+									<option value="1">ACTIVADO</option>
+									<option value="0">DESACTIVADO</option>
+								</select>
+							</div>
+							<!-- /.form-group -->
+						</div>
+
+						<!-- /.col -->
+					</div>
+					<button type="submit" class="btn btn-success">MODIFICAR</button>
+					<!-- /.row -->
+				</div>
+				<br> <br>
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	window.onload = function() {
+		document.getElementById("grado").value =${objusu.grado};
+		document.getElementById("estado").value = ${objusu.estado};
+	};
+</script>
+
+
+
