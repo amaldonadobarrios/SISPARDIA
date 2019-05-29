@@ -2,6 +2,9 @@
 	pageEncoding="ISO-8859-1"%>
 
 <div class="box box-default">
+	<form action="Sefectivo" method="post">
+	<input type="hidden" name="action" value="regefectivo">
+	<input type="hidden" name="idefectivo" value="">
 	<div class="box-header with-border" align="center">
 		<div class="row">
 			<div class="col-md-6">
@@ -13,42 +16,42 @@
 						<div class="input-group">
 							<span class="input-group-addon">Apellido Paterno</span> <input
 								type="text" class="form-control" name="txtapepat"
-								placeholder="Apellido Paterno">
+								placeholder="Apellido Paterno" required="required">
 						</div>
 						<br>
 						<div class="input-group">
 							<span class="input-group-addon">Apellido Materno</span> <input
 								type="text" class="form-control" name="txtapemat"
-								placeholder="Apellido Materno">
+								placeholder="Apellido Materno" required="required">
 						</div>
 						<br>
 						<div class="input-group">
 							<span class="input-group-addon">Nombres</span> <input type="text"
-								class="form-control" name="txtnombres" placeholder="Nombres">
+								class="form-control" name="txtnombres" placeholder="Nombres" required="required">
 						</div>
 						<br>
 						<div class="input-group">
 							<span class="input-group-addon">DNI</span> <input type="text"
-								class="form-control" name="txtdni" placeholder="Nombres">
+								class="form-control" name="txtdni" placeholder="Nombres" required="required">
 						</div>
 						<br>
 
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
 							<input type="email" class="form-control" name="txtemail"
-								placeholder="Email">
+								placeholder="Email" required="required">
 						</div>
 						<br>
 						<div class="input-group">
 							<span class="input-group-addon">Teléfono</span> <input
 								type="text" class="form-control" name="txttelefono"
-								placeholder="teléfono">
+								placeholder="teléfono" required="required">
 						</div>
 						<br>
 						<div class="input-group">
 							<span class="input-group-addon">Domicilio</span> <input
 								type="text" class="form-control" name="txtdomicilio"
-								placeholder="domicilio">
+								placeholder="domicilio" required="required">
 						</div>
 						<br>
 					</div>
@@ -62,12 +65,12 @@
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon">CIP</span> <input type="text"
-							class="form-control" name="txtcip" placeholder="Cip">
+							class="form-control" name="txtcip" placeholder="Cip" required="required">
 					</div>
 					<br>
 					<div class="input-group">
 						<span class="input-group-addon">Grado</span> <select id="grado"
-							name="txtgrado" class="form-control" required="required">
+							name="txtgrado" class="form-control" required="required" >
 							<option value="">Seleccione</option>
 							<option value="25">CRNL PNP</option>
 							<option value="24">CRNL PNP</option>
@@ -181,10 +184,11 @@
 		</div>
 		<div class="container" align="center">
 				<div class="col-md-12" >
-		<button type="button" class="btn btn-block btn-primary btn-lg">REGISTRAR</button>
+		<button type="submir" class="btn btn-block btn-primary btn-lg">REGISTRAR</button>
 		</div>
 		</div>
 	</div>
+	</form>
 <div class="box-body">
 				<div class="container col-md-12" align="center">
 					<BR>
