@@ -24,8 +24,7 @@
           </a>
           <ul class="treeview-menu" style="display: none;">
             <li><a href="SPage?action=regefe"><i class="fa fa-circle-o"></i> Registrar Efectivo</a></li>
-            <li><a href="UI/icons.html"><i class="fa fa-circle-o"></i> Modificar Efectivo</a></li>
-            <li><a href="UI/buttons.html"><i class="fa fa-circle-o"></i> Agregar Situación</a></li>
+            <li><a href="SPage?action=agresit"><i class="fa fa-circle-o"></i> Agregar Situación</a></li>
           </ul>
         </li>
         <li class="treeview menu-open">

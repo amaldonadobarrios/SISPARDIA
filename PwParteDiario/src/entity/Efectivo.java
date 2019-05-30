@@ -17,7 +17,7 @@ public class Efectivo implements Serializable {
 	@Id
 	@SequenceGenerator(name="EFECTIVO_IDEFECTIVO_GENERATOR", sequenceName="SEC_EFECTIVO",allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EFECTIVO_IDEFECTIVO_GENERATOR")
-	private long idefectivo;
+	private int idefectivo;
 
 	private String apemat;
 
@@ -60,11 +60,11 @@ public class Efectivo implements Serializable {
 	public Efectivo() {
 	}
 
-	public long getIdefectivo() {
+	public int getIdefectivo() {
 		return this.idefectivo;
 	}
 
-	public void setIdefectivo(long idefectivo) {
+	public void setIdefectivo(int idefectivo) {
 		this.idefectivo = idefectivo;
 	}
 
@@ -233,7 +233,7 @@ public class Efectivo implements Serializable {
 	 * @param usumod
 	 * @param usureg
 	 */
-	public Efectivo(long idefectivo, String apemat, String apepat, String cip, String correo, String dni,
+	public Efectivo(int idefectivo, String apemat, String apepat, String cip, String correo, String dni,
 			String domicilio, int estado, Date fechamod, Date fechareg, String grado, int idarea, int idcargo,
 			int idjerarquia, int idmodalidad, String nombres, String telefono, String usumod, String usureg) {
 		super();
@@ -256,6 +256,48 @@ public class Efectivo implements Serializable {
 		this.telefono = telefono;
 		this.usumod = usumod;
 		this.usureg = usureg;
+	}
+
+	/**
+	 * @param idefectivo
+	 * @param apemat
+	 * @param apepat
+	 * @param cip
+	 * @param correo
+	 * @param dni
+	 * @param domicilio
+	 * @param estado
+	 * @param fechamod
+	 * @param grado
+	 * @param idarea
+	 * @param idcargo
+	 * @param idjerarquia
+	 * @param idmodalidad
+	 * @param nombres
+	 * @param telefono
+	 * @param usumod
+	 */
+	public Efectivo(int idefectivo, String apemat, String apepat, String cip, String correo, String dni,
+			String domicilio, int estado, Date fechamod, String grado, int idarea, int idcargo, int idjerarquia,
+			int idmodalidad, String nombres, String telefono, String usumod) {
+		super();
+		this.idefectivo = idefectivo;
+		this.apemat = apemat;
+		this.apepat = apepat;
+		this.cip = cip;
+		this.correo = correo;
+		this.dni = dni;
+		this.domicilio = domicilio;
+		this.estado = estado;
+		this.fechamod = fechamod;
+		this.grado = grado;
+		this.idarea = idarea;
+		this.idcargo = idcargo;
+		this.idjerarquia = idjerarquia;
+		this.idmodalidad = idmodalidad;
+		this.nombres = nombres;
+		this.telefono = telefono;
+		this.usumod = usumod;
 	}
 
 }

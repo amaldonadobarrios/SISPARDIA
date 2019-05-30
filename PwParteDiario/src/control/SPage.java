@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.EfectivoDAO;
 import dao.UsuarioDAO;
 import entity.Usuario;
 
@@ -66,6 +67,9 @@ public class SPage extends HttpServlet {
 					case "regefe":
 						this.regefe(request, response);
 						break;
+					case "agresit":
+						this.agresit(request, response);
+						break;	
 					default:
 						this.pagelogin(request, response);
 						break;
@@ -93,7 +97,21 @@ public class SPage extends HttpServlet {
 		}
 	}
 
+	private void agresit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("breadcrumb", "Agregar Situacion");
+		request.setAttribute("body", "agresit");
+		forwar("template.jsp", request, response);
+		
+	}
+
 	private void regefe(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		EfectivoDAO dao = new EfectivoDAO();
+		try {
+			request.setAttribute("lista", dao.GetEfectivos());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		request.setAttribute("breadcrumb", "Registrar Efectivo");
 		request.setAttribute("body", "regefectivo");
 		forwar("template.jsp", request, response);
