@@ -22,14 +22,14 @@ public class UsuarioDAO {
 		if (con != null) {
 			try {
 				PreparedStatement ps = con.prepareStatement(sqlResult);
-				ps.setString(1, usu.getApepat());
-				ps.setString(2, usu.getApemat());
-				ps.setString(3, usu.getNombres());
+				ps.setString(1, usu.getApepat().toUpperCase().trim());
+				ps.setString(2, usu.getApemat().toUpperCase().trim());
+				ps.setString(3, usu.getNombres().toUpperCase().trim());
 				ps.setInt(4, usu.getEstado());
-				ps.setString(5, usu.getCip());
+				ps.setString(5, usu.getCip().trim());
 				ps.setString(6, usu.getPassword());
 				ps.setString(7, usu.getUsureg());
-				ps.setString(8, usu.getGrado());
+				ps.setInt(8, usu.getGrado());
 				int i = ps.executeUpdate();
 				if (i > 0) {
 					con.commit();
@@ -59,14 +59,14 @@ public class UsuarioDAO {
 		if (con != null) {
 			try {
 				PreparedStatement ps = con.prepareStatement(sqlResult);
-				ps.setString(1, usu.getApepat());
-				ps.setString(2, usu.getApemat());
-				ps.setString(3, usu.getNombres());
+				ps.setString(1, usu.getApepat().toUpperCase().trim());
+				ps.setString(2, usu.getApemat().toUpperCase().trim());
+				ps.setString(3, usu.getNombres().toUpperCase().trim());
 				ps.setInt(4, usu.getEstado());
-				ps.setString(5, usu.getCip());
+				ps.setString(5, usu.getCip().trim());
 				ps.setString(6, usu.getPassword());
 				ps.setString(7, usu.getUsumod());
-				ps.setString(8, usu.getGrado());
+				ps.setInt(8, usu.getGrado());
 				ps.setInt(9, usu.getIdusuario());
 				int i = ps.executeUpdate();
 				if (i > 0) {
@@ -96,7 +96,7 @@ public class UsuarioDAO {
 
 		try {
 			con = AccesoBD.getConnection();
-			sqlResult = "select * from USUARIOPNP USU LEFT JOIN GRADO GRA ON GRA.TGRAD=USU.GRADO";
+			sqlResult = "select * from USUARIOPNP USU INNER JOIN GRADO GRA ON GRA.TGRAD=USU.GRADO";
 		} catch (Throwable ex) {
 			throw new Exception("Problemas del sistema...");
 		}
@@ -110,7 +110,8 @@ public class UsuarioDAO {
 				while (rs.next()) {
 					usu = new Usuario(rs.getInt("IDUSUARIO"), rs.getInt("estado"), rs.getString("APEPAT"),
 							rs.getString("APEMAT"), rs.getString("nombres"), rs.getString("cip"),
-							rs.getString("password"), rs.getString("usumod"), rs.getString("usureg"),rs.getString("desgrad"));
+							rs.getString("password"), rs.getString("usumod"), rs.getString("usureg"),rs.getInt("GRADO"));
+					usu.setDesgrad(rs.getString("DESGRAD"));
 					listTemp.add(usu);
 				}
 			} catch (SQLException e) {
@@ -133,7 +134,7 @@ public class UsuarioDAO {
 		try {
 			con = AccesoBD.getConnection();
 			sqlResult = "select * from USUARIOPNP USU \r\n" + 
-					"LEFT JOIN GRADO GRA ON GRA.TGRAD=USU.GRADO\r\n" + 
+					"INNER JOIN GRADO GRA ON GRA.TGRAD=USU.GRADO\r\n" + 
 					"where USU.idusuario=?";
 		} catch (Throwable ex) {
 			throw new Exception("Problemas del sistema...");
@@ -149,7 +150,8 @@ public class UsuarioDAO {
 				if (rs.next()) {
 					usu = new Usuario(rs.getInt("IDUSUARIO"), rs.getInt("estado"), rs.getString("APEPAT"),
 							rs.getString("APEMAT"), rs.getString("nombres"), rs.getString("cip"),
-							rs.getString("password"), rs.getString("usumod"), rs.getString("usureg"),rs.getString("GRADO"));
+							rs.getString("password"), rs.getString("usumod"), rs.getString("usureg"),rs.getInt("GRADO"));
+					usu.setDesgrad(rs.getString("DESGRAD"));
 				}
 
 			} catch (SQLException e) {
@@ -171,9 +173,7 @@ public class UsuarioDAO {
 		Usuario usu = null;
 		try {
 			con = AccesoBD.getConnection();
-			sqlResult = "select * from USUARIOPNP USU \r\n" + 
-					"LEFT JOIN GRADO GRA ON GRA.TGRAD=USU.GRADO\r\n" + 
-					"where USU.cip=? and USU.password=? and USU.estado=1";
+			sqlResult = "select USU.IDUSUARIO,USU.ESTADO,USU.APEMAT,USU.APEPAT,USU.NOMBRES,USU.CIP,USU.PASSWORD,USU.USUMOD,USU.USUREG,USU.GRADO, GRA.DESGRAD from USUARIOPNP USU  INNER JOIN GRADO GRA ON GRA.TGRAD=USU.GRADO where USU.cip=? and USU.password=? and USU.estado=1";
 		} catch (Throwable ex) {
 			System.out.println(ex.getMessage());
 			throw new Exception("Problemas del sistema...");
@@ -190,7 +190,8 @@ public class UsuarioDAO {
 				if (rs.next()) {
 					usu = new Usuario(rs.getInt("IDUSUARIO"), rs.getInt("estado"), rs.getString("APEPAT"),
 							rs.getString("APEMAT"), rs.getString("nombres"), rs.getString("cip"),
-							rs.getString("password"), rs.getString("usumod"), rs.getString("usureg"),rs.getString("desgrad"));
+							rs.getString("password"), rs.getString("usumod"), rs.getString("usureg"),rs.getInt("GRADO"));
+					usu.setDesgrad(rs.getString("DESGRAD"));
 				}
 
 			} catch (SQLException e) {
@@ -202,7 +203,7 @@ public class UsuarioDAO {
 				}
 			}
 		}
-
+		System.out.println(usu.toString());
 		return usu;
 
 	}
@@ -229,7 +230,7 @@ public class UsuarioDAO {
 				if (rs.next()) {
 					usu = new Usuario(rs.getInt("IDUSUARIO"), rs.getInt("estado"), rs.getString("APEPAT"),
 							rs.getString("APEMAT"), rs.getString("nombres"), rs.getString("cip"),
-							rs.getString("password"), rs.getString("usumod"), rs.getString("usureg"),rs.getString("GRADO").trim());
+							rs.getString("password"), rs.getString("usumod"), rs.getString("usureg"),rs.getInt("GRADO"));
 				}
 			} catch (SQLException e) {
 				throw new Exception("Problemas del sistema...");

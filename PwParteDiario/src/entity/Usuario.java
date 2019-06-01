@@ -5,7 +5,17 @@ public class Usuario {
 //definimos los atributos de la clase usuario
 
 	int idusuario, estado;
-	String apepat, apemat, nombres, cip, password, usumod, usureg, grado;
+	String apepat, apemat, nombres, cip, password, usumod, usureg, desgrad;
+	
+	public String getDesgrad() {
+		return desgrad;
+	}
+
+	public void setDesgrad(String desgrad) {
+		this.desgrad = desgrad;
+	}
+
+	int grado;
 	// fecha reg y fechamod lo registramos desde bd
 	// creamos los metodos set y get
 
@@ -13,11 +23,11 @@ public class Usuario {
 		return idusuario;
 	}
 
-	public String getGrado() {
+	public int getGrado() {
 		return grado;
 	}
 
-	public void setGrado(String grado) {
+	public void setGrado(int grado) {
 		this.grado = grado;
 	}
 
@@ -91,7 +101,7 @@ public class Usuario {
 
 	// creamos contructor
 	public Usuario(int idusuario, int estado, String apepat, String apemat, String nombres, String cip, String password,
-			String usumod, String usureg, String grado) {
+			String usumod, String usureg, int grado) {
 		super();
 		this.idusuario = idusuario;
 		this.estado = estado;

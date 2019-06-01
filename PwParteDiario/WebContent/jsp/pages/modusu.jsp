@@ -94,35 +94,31 @@
 									value="${objusu.password}" name="txtpass2" required="required">
 							</div>
 							<div class="form-group">
-								<label>GRADO</label> <select id="grado" name="txtgrado" class="form-control" required="required">
-                                    <option  value="" >Seleccione</option>
-                                    <option  value="25">CRNL PNP</option>
-                                    <option  value="24">CRNL PNP</option>
-                                    <option  value="23">CRNL PNP</option>
-                                    <option  value="22">CRNL PNP</option>
-                                    <option  value="21">CRNL PNP</option>
-									<option  value="20">CMDTE PNP</option>
-									<option  value="19">MAY PNP</option>
-									<option  value="18">SS PNP</option>
-									<option  value="17">SB PNP</option>
-									<option  value="16">ST1 PNP</option>
-									<option  value="15">ST2 PNP</option>
-									<option  value="14">ST3 PNP</option>
-									<option  value="13">S1 PNP</option>
-									<option  value="12">S2 PNP</option>
-									<option  value="11">CRNL PNP</option>
-									<option  value="10">CMDTE PNP</option>
-									<option  value="9">MAY PNP</option>
-									<option  value="8">SS PNP</option>
-									<option  value="7">SB PNP</option>
-									<option  value="6">ST1 PNP</option>
-									<option  value="5">ST2 PNP</option>
-									<option  value="4">ST3 PNP</option>
-									<option  value="3">S1 PNP</option>
-									<option  value="2">S2 PNP</option>
-									<option  value="1">S3 PNP</option>
-
-									</select>
+								<label>GRADO</label> <select id="grado" name="txtgrado"
+									class="form-control" required="required">
+									<option value="">Seleccione</option>
+									<option value="21">CRNL PNP</option>
+									<option value="20">CMDTE PNP</option>
+									<option value="19">MAY PNP</option>
+									<option value="18">CAP PNP</option>
+									<option value="17">ALF PNP</option>
+									<option value="16">SS PNP</option>
+									<option value="15">SB PNP</option>
+									<option value="14">ST1 PNP</option>
+									<option value="13">ST2 PNP</option>
+									<option value="12">ST3 PNP</option>
+									<option value="11">S1 PNP</option>
+									<option value="10">S2 PNP</option>
+									<option value="9">S3 PNP</option>
+									<option value="8">SS SPNP</option>
+									<option value="7">SB SPNP</option>
+									<option value="6">ST1 SPNP</option>
+									<option value="5">ST2 SPNP</option>
+									<option value="4">ST3 SPNP</option>
+									<option value="3">S1 SPNP</option>
+									<option value="2">S2 SPNP</option>
+									<option value="1">S3 SPNP</option>
+								</select>
 							</div>
 							<!-- /.form-group -->
 						</div>
@@ -168,7 +164,7 @@
 </div>
 <script type="text/javascript">
 	window.onload = function() {
-		document.getElementById("grado").value =${objusu.grado};
+		document.getElementById("grado").value = ${objusu.grado};
 		document.getElementById("estado").value = ${objusu.estado};
 	};
 </script>

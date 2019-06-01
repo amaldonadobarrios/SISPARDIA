@@ -1,6 +1,9 @@
 package control.efectivo;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -11,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.EfectivoDAO;
+import dao.EfectivoSituacionDAO;
 import entity.Efectivo;
+import entity.EfectivoSituacion;
 
 /**
  * Servlet implementation class Sefectivo
@@ -68,6 +73,9 @@ public class Sefectivo extends HttpServlet {
 					case "getefecip":
 						this.getefecip(request, response,usuario);
 						break;	
+					case "regSituacion":
+						this.regSituacion(request, response,usuario);
+						break;
 					default:
 						this.pagelogin(request, response);
 						break;
@@ -96,9 +104,107 @@ public class Sefectivo extends HttpServlet {
 
 	}
 
+	private void regSituacion(HttpServletRequest request, HttpServletResponse response, String usuario) throws ServletException, IOException {
+		String idefectivo = request.getParameter("idefectivo") != null ? request.getParameter("idefectivo") : "";
+		String txtsituacion = request.getParameter("txtsituacion") != null ? request.getParameter("txtsituacion") : "";
+		String indeterminado = request.getParameter("indeterminado") != null ? request.getParameter("indeterminado") : "";
+		String txtfechaini = request.getParameter("txtfechaini") != null ? request.getParameter("txtfechaini") : "";
+		String txtfecharange = request.getParameter("txtfecharange") != null ? request.getParameter("txtfecharange") : "";
+		String txtobservaciones = request.getParameter("txtobservaciones") != null ? request.getParameter("txtobservaciones") : "";
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+		EfectivoSituacion efesitu=null;
+		Date fini=null;
+		Date ffin=null;
+		Calendar hoy = Calendar.getInstance(); // locale-specific
+		hoy.setTime(new Date());
+		hoy.set(Calendar.HOUR_OF_DAY, 0);
+		hoy.set(Calendar.MINUTE, 0);
+		hoy.set(Calendar.SECOND, 0);
+		hoy.set(Calendar.MILLISECOND, 0);
+		int msg=100;
+		if (idefectivo.equals("")) {
+			msg=3;
+			request.setAttribute("msg", msg);
+			request.setAttribute("breadcrumb", "Agregar Situacion");
+			request.setAttribute("body", "agresit");
+			forwar("template.jsp", request, response);
+		}else {
+			if (indeterminado.equals("on")) {
+				try {fini=format.parse (txtfechaini);} catch (ParseException e) {
+				msg=4; 
+				request.setAttribute("msg", msg);
+				request.setAttribute("breadcrumb", "Agregar Situacion");
+				request.setAttribute("body", "agresit");
+				forwar("template.jsp", request, response);}
+				if (fini.after(new Date())|| fini.equals(hoy.getTime())) {
+					// registra  situacion  con solo fecha ini
+					efesitu= new  EfectivoSituacion(0, 1, ffin, fini, Integer.parseInt(idefectivo), Integer.parseInt(txtsituacion), 1, txtobservaciones.toUpperCase().trim(), usuario);
+					EfectivoSituacionDAO dao= new EfectivoSituacionDAO();
+					msg=dao.grabar(efesitu);
+					request.setAttribute("msg", msg);
+					request.setAttribute("breadcrumb", "Agregar Situacion");
+					request.setAttribute("body", "agresit");
+					forwar("template.jsp", request, response);	
+				}else {
+					//error 
+					msg=7;
+					request.setAttribute("msg", msg);
+					request.setAttribute("breadcrumb", "Agregar Situacion");
+					request.setAttribute("body", "agresit");
+					forwar("template.jsp", request, response);
+				}
+				
+				
+			}else {
+				
+				String[] parts = txtfecharange.split("-");
+				String fechainicial=parts[0].trim();
+				String fechafinal=parts[1].trim();
+				try {
+					fini=format.parse (fechainicial);
+					ffin=format.parse (fechafinal);
+				} catch (ParseException e) {
+				msg=4; 
+				request.setAttribute("msg", msg);
+				request.setAttribute("breadcrumb", "Agregar Situacion");
+				request.setAttribute("body", "agresit");
+				forwar("template.jsp", request, response);
+				}
+				if (fini.after(new Date())|| fini.equals(hoy.getTime())) {
+					if (ffin.before(fini)|| fini.equals(fini)) {
+						// registra  situacion  con rango de fechas
+						efesitu= new  EfectivoSituacion(0, 1, ffin, fini, Integer.parseInt(idefectivo), Integer.parseInt(txtsituacion), 0, txtobservaciones.toUpperCase().trim(), usuario);
+						EfectivoSituacionDAO dao= new EfectivoSituacionDAO();
+						msg=dao.grabar(efesitu);
+						request.setAttribute("msg", msg);
+						request.setAttribute("breadcrumb", "Agregar Situacion");
+						request.setAttribute("body", "agresit");
+						forwar("template.jsp", request, response);	
+	
+					}else {
+					//error 
+					msg=7;
+					request.setAttribute("msg", msg);
+					request.setAttribute("breadcrumb", "Agregar Situacion");
+					request.setAttribute("body", "agresit");
+					forwar("template.jsp", request, response);
+					}
+				}else {
+					//error 
+					msg=7;
+					request.setAttribute("msg", msg);
+					request.setAttribute("breadcrumb", "Agregar Situacion");
+					request.setAttribute("body", "agresit");
+					forwar("template.jsp", request, response);	
+				}	
+			}
+		}	
+	}
+
 	private void getefecip(HttpServletRequest request, HttpServletResponse response, String usuario) throws ServletException, IOException {
 		String cipefectivo = request.getParameter("bcip") != null ? request.getParameter("bcip") : "";
 		EfectivoDAO dao = new EfectivoDAO();
+		EfectivoSituacionDAO  daosit= new  EfectivoSituacionDAO();
 		Efectivo ef=null;
 		try {
 			ef=dao.GetEfectivosxcip(cipefectivo);
@@ -110,6 +216,10 @@ public class Sefectivo extends HttpServlet {
 			request.setAttribute("msg", 0);
 		}else {
 			request.setAttribute("msg", 1);
+			try {
+				request.setAttribute("lista", daosit.ListaEfectivoSituacion(cipefectivo));
+			} catch (Exception e) {
+			}
 		}
 		request.setAttribute("breadcrumb", "Agregar Situacion");
 		request.setAttribute("body", "agresit");
@@ -158,7 +268,7 @@ public class Sefectivo extends HttpServlet {
 			idefectivo="0";
 		}
 		EfectivoDAO dao = new EfectivoDAO();
-		Efectivo e= new Efectivo(Integer.parseInt(idefectivo), txtapemat.toUpperCase().trim(), txtapepat.toUpperCase().trim(), txtcip.trim(), txtemail.toLowerCase().trim(), txtdni.trim(), txtdomicilio.toUpperCase().trim(), Integer.parseInt(txtestado), new Date(), new Date(), txtgrado.trim(), Integer.parseInt(txtarea), Integer.parseInt(txtcargo), Integer.parseInt(txtjerarquia), Integer.parseInt(txtmodalidad), txtnombres.toUpperCase().trim(), txttelefono.trim(), usuario, usuario);
+		Efectivo e= new Efectivo(Integer.parseInt(idefectivo), txtapemat.toUpperCase().trim(), txtapepat.toUpperCase().trim(), txtcip.trim(), txtemail.toLowerCase().trim(), txtdni.trim(), txtdomicilio.toUpperCase().trim(), Integer.parseInt(txtestado), new Date(), new Date(), Integer.parseInt(txtgrado.trim()), Integer.parseInt(txtarea), Integer.parseInt(txtcargo), Integer.parseInt(txtjerarquia), Integer.parseInt(txtmodalidad), txtnombres.toUpperCase().trim(), txttelefono.trim(), usuario, usuario);
 		boolean rpta=dao.grabar(e);
 		int estado=0;
 		if (rpta) {

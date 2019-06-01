@@ -53,7 +53,7 @@
 								<c:forEach items="${lista}" var="element">
 									<tr>
 										<td>${element.cip}</td>
-										<td>${element.grado}</td>
+										<td>${element.desgrad}</td>
 										<td>${element.apepat}</td>
 										<td>${element.apemat}</td>
 										<td>${element.nombres}</td>

@@ -53,7 +53,7 @@ public class Sregistrar extends HttpServlet {
 		
 		try {
 			if (pass.equals(pass2)) {
-				usu= new Usuario(0, Integer.parseInt(estado), apepat.toUpperCase().trim(), apemat.toUpperCase().trim(), nombres.trim().toUpperCase(), cip.trim(), pass.toUpperCase(), "1", "1",grado);
+				usu= new Usuario(0, Integer.parseInt(estado), apepat.toUpperCase().trim(), apemat.toUpperCase().trim(), nombres.trim().toUpperCase(), cip.trim(), pass.toUpperCase(), "1", "1",Integer.parseInt(grado));
 				UsuarioDAO dao= new  UsuarioDAO();
 				rpt=dao.InsertarUsuario(usu);
 			}

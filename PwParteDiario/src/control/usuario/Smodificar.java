@@ -83,7 +83,7 @@ public class Smodificar extends HttpServlet {
 				cip=request.getParameter("txtcip");
 					if (pass.equals(pass2)) {
 						
-						usu=new Usuario(Integer.parseInt(idusuario), Integer.parseInt(estado), apepat, apemat, nombres, cip, pass, "1", "1",grado);
+						usu=new Usuario(Integer.parseInt(idusuario), Integer.parseInt(estado), apepat, apemat, nombres, cip, pass, "1", "1",Integer.parseInt(grado));
 						UsuarioDAO dao= new UsuarioDAO();
 						try {
 							rpt=dao.actualizarUsuario(usu);

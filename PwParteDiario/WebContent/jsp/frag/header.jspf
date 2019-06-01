@@ -35,7 +35,7 @@
 
                 <p>
                    ${sessionScope.User.apepat} ${sessionScope.User.apemat} ${sessionScope.User.nombres}
-                  <small>${sessionScope.User.grado}</small>
+                  <small>${sessionScope.User.desgrad}</small>
                   <small>${sessionScope.User.cip}</small> 
                 </p>
               </li>

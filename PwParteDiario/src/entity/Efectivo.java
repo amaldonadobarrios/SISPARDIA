@@ -39,7 +39,7 @@ public class Efectivo implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date fechareg;
 
-	private String grado;
+	private int grado;
 
 	private int idarea;
 
@@ -140,11 +140,11 @@ public class Efectivo implements Serializable {
 		this.fechareg = fechareg;
 	}
 
-	public String getGrado() {
+	public int getGrado() {
 		return this.grado;
 	}
 
-	public void setGrado(String grado) {
+	public void setGrado(int grado) {
 		this.grado = grado;
 	}
 
@@ -234,7 +234,7 @@ public class Efectivo implements Serializable {
 	 * @param usureg
 	 */
 	public Efectivo(int idefectivo, String apemat, String apepat, String cip, String correo, String dni,
-			String domicilio, int estado, Date fechamod, Date fechareg, String grado, int idarea, int idcargo,
+			String domicilio, int estado, Date fechamod, Date fechareg, int grado, int idarea, int idcargo,
 			int idjerarquia, int idmodalidad, String nombres, String telefono, String usumod, String usureg) {
 		super();
 		this.idefectivo = idefectivo;
@@ -278,7 +278,7 @@ public class Efectivo implements Serializable {
 	 * @param usumod
 	 */
 	public Efectivo(int idefectivo, String apemat, String apepat, String cip, String correo, String dni,
-			String domicilio, int estado, Date fechamod, String grado, int idarea, int idcargo, int idjerarquia,
+			String domicilio, int estado, Date fechamod, int grado, int idarea, int idcargo, int idjerarquia,
 			int idmodalidad, String nombres, String telefono, String usumod) {
 		super();
 		this.idefectivo = idefectivo;

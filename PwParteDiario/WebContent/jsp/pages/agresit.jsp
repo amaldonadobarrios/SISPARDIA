@@ -16,6 +16,19 @@
 			</div>
 		</div>
 	</c:if>
+	<c:if test="${msg==6}">
+		<div class="col-md-12 container" align="center"
+			style="text-align: center;">
+			<div class="alert alert-success alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">×</button>
+				<h4>
+					<i class="icon fa fa-check"></i> Grabado!
+				</h4>
+				Situacion registrada
+			</div>
+		</div>
+	</c:if>
 	<c:if test="${msg==0}">
 		<div class="col-md-12 container" align="center"
 			style="text-align: center;">
@@ -26,6 +39,71 @@
 					<i class="icon fa fa-ban"></i> Error!
 				</h4>
 				No existe o cip no coincide o no esta activado
+			</div>
+		</div>
+	</c:if>
+	<c:if test="${msg==4}">
+		<div class="col-md-12 container" align="center"
+			style="text-align: center;">
+			<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">×</button>
+				<h4>
+					<i class="icon fa fa-ban"></i> Error!
+				</h4>
+				Fecha no valida
+			</div>
+		</div>
+	</c:if>
+	<c:if test="${msg==7}">
+		<div class="col-md-12 container" align="center"
+			style="text-align: center;">
+			<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">×</button>
+				<h4>
+					<i class="icon fa fa-ban"></i> Error!
+				</h4>
+				Fecha  no puede ser pasada
+			</div>
+		</div>
+	</c:if>
+	<c:if test="${msg==5}">
+		<div class="col-md-12 container" align="center"
+			style="text-align: center;">
+			<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">×</button>
+				<h4>
+					<i class="icon fa fa-ban"></i> Error!
+				</h4>
+				No fue posible registrar una situacion
+			</div>
+		</div>
+	</c:if>
+	<c:if test="${msg==4}">
+		<div class="col-md-12 container" align="center"
+			style="text-align: center;">
+			<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">×</button>
+				<h4>
+					<i class="icon fa fa-ban"></i> Error!
+				</h4>
+				Fecha no valida
+			</div>
+		</div>
+	</c:if>
+	<c:if test="${msg==3}">
+		<div class="col-md-12 container" align="center"
+			style="text-align: center;">
+			<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">×</button>
+				<h4>
+					<i class="icon fa fa-ban"></i> Error!
+				</h4>
+				Seleccione un Efectivo antes
 			</div>
 		</div>
 	</c:if>
@@ -61,31 +139,27 @@
 								<span class="input-group-addon">Grado</span> <select id="grado"
 									name="txtgrado" class="form-control" disabled="disabled">
 									<option value="">Seleccione</option>
-									<option value="25">CRNL PNP</option>
-									<option value="24">CRNL PNP</option>
-									<option value="23">CRNL PNP</option>
-									<option value="22">CRNL PNP</option>
-									<option value="21">CRNL PNP</option>
-									<option value="20">CMDTE PNP</option>
-									<option value="19">MAY PNP</option>
-									<option value="18">SS PNP</option>
-									<option value="17">SB PNP</option>
-									<option value="16">ST1 PNP</option>
-									<option value="15">ST2 PNP</option>
-									<option value="14">ST3 PNP</option>
-									<option value="13">S1 PNP</option>
-									<option value="12">S2 PNP</option>
-									<option value="11">CRNL PNP</option>
-									<option value="10">CMDTE PNP</option>
-									<option value="9">MAY PNP</option>
-									<option value="8">SS PNP</option>
-									<option value="7">SB PNP</option>
-									<option value="6">ST1 PNP</option>
-									<option value="5">ST2 PNP</option>
-									<option value="4">ST3 PNP</option>
-									<option value="3">S1 PNP</option>
-									<option value="2">S2 PNP</option>
-									<option value="1">S3 PNP</option>
+									<option  value="21">CRNL PNP</option>
+									<option  value="20">CMDTE PNP</option>
+									<option  value="19">MAY PNP</option>
+									<option  value="18">CAP PNP</option>
+									<option  value="17">ALF PNP</option>
+									<option  value="16">SS PNP</option>
+									<option  value="15">SB PNP</option>
+									<option  value="14">ST1 PNP</option>
+									<option  value="13">ST2 PNP</option>
+									<option  value="12">ST3 PNP</option>
+									<option  value="11">S1 PNP</option>
+									<option  value="10">S2 PNP</option>
+									<option  value="9">S3 PNP</option>
+									<option  value="8">SS SPNP</option>
+									<option  value="7">SB SPNP</option>
+									<option  value="6">ST1 SPNP</option>
+									<option  value="5">ST2 SPNP</option>
+									<option  value="4">ST3 SPNP</option>
+									<option  value="3">S1 SPNP</option>
+									<option  value="2">S2 SPNP</option>
+									<option  value="1">S3 SPNP</option>
 								</select>
 							</div>
 							<br>
@@ -253,7 +327,8 @@
 							<!-- /.input group -->
 						</div>
 						<br>
-						<div class="form-group" id="divran">
+              <div class="form-group" id="divran">
+              <div class="form-group">
                 <label>Rango de Fechas</label>
 
                 <div class="input-group">
@@ -264,9 +339,15 @@
                 </div>
                 <!-- /.input group -->
               </div>
-
-
-
+              </div>
+				<BR>
+				<div class="input-group">
+								<span class="input-group-addon">Observaciones</span> <input
+									type="text" class="form-control" name="txtobservaciones"
+									placeholder="Nombres" value=""
+									required="required">
+							</div>
+							<br>
 						<!-- /input-group -->
 					</div>
 					<!-- /.box-body -->
@@ -274,7 +355,7 @@
 			</div>
 			<div class="container" align="center">
 				<div class="col-md-12">
-					<button type="submir" class="btn btn-block btn-primary btn-lg">REGISTRAR</button>
+					<button type="submit" class="btn btn-block btn-primary btn-lg">REGISTRAR</button>
 				</div>
 			</div>
 		</div>
@@ -290,35 +371,30 @@
 					<thead>
 						<tr>
 							<th>Nº</th>
-							<th>APELLIDO PAT</th>
-							<th>APELLIDO MAT</th>
-							<th>NOMBRES</th>
-							<th>CIP</th>
-							<th>DNI</th>
-							<th>TELEFONO</th>
-							<th>CORREO</th>
+							<th>FECHA REGISTRO</th>
+							<th>SITUACION</th>
+							<th>FECHA INICIO</th>
+							<th>FECHA FIN</th>
+							<th>RANGO</th>
+							<th>OBSERVACIONES</th>
 							<th>ESTADO</th>
-							<th>Seleccionar</th>
+							<th>VIGENCIA</th>
+							<th>USUARIO REGISTRO</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${lista}" var="element" varStatus="count">
 							<tr>
 								<td>${count.index+1}</td>
-								<td>${element.apepat}</td>
-								<td>${element.apemat}</td>
-								<td>${element.nombres}</td>
-								<td>${element.cip}</td>
-								<td>${element.dni}</td>
-								<td>${element.telefono}</td>
-								<td>${element.correo}</td>
-								<td><c:choose>
-										<c:when test="${element.estado==1}">ACTIVADO</c:when>
-										<c:otherwise>DESACTIVADO </c:otherwise>
-									</c:choose></td>
-								<td><a
-									href="Sefectivo?action=getefe&id=${element.idefectivo}">
-										Seleccionar</a></td>
+								<td>${element.fechareg}</td>
+								<td>${element.situacion}</td>
+								<td>${element.fini}</td>
+								<td>${element.ffin}</td>
+								<td>${element.rango}</td>
+								<td>${element.obs}</td>
+								<td>${element.estado}</td>
+								<td>${element.vigencia}</td>
+								<td>${element.usureg}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -344,36 +420,12 @@
 		}
 		window.onload = function() {
 			 
-			document.getElementById("grado").value = $
-			{
-				objefe.grado
-			}
-			;
-			document.getElementById("area").value = $
-			{
-				objefe.idarea
-			}
-			;
-			document.getElementById("cargo").value = $
-			{
-				objefe.idcargo
-			}
-			;
-			document.getElementById("jerarquia").value = $
-			{
-				objefe.idjerarquia
-			}
-			;
-			document.getElementById("modalidad").value = $
-			{
-				objefe.idmodalidad
-			}
-			;
-			document.getElementById("estado").value = $
-			{
-				objefe.estado
-			}
-			;
+			document.getElementById("grado").value = ${objefe.grado};
+			document.getElementById("area").value = ${objefe.idarea};
+			document.getElementById("cargo").value = ${objefe.idcargo};
+			document.getElementById("jerarquia").value = ${objefe.idjerarquia};
+			document.getElementById("modalidad").value = ${objefe.idmodalidad};
+			document.getElementById("estado").value = ${objefe.estado};
 		};
 	</script>
 </div>
