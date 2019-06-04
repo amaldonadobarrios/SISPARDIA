@@ -70,6 +70,9 @@ public class SPage extends HttpServlet {
 					case "agresit":
 						this.agresit(request, response);
 						break;	
+					case "generaParte":
+						this.generaParte(request, response);
+						break;
 					default:
 						this.pagelogin(request, response);
 						break;
@@ -95,6 +98,13 @@ public class SPage extends HttpServlet {
 			System.out.println("DESTINO:" + "index.jsp");
 			forwar("index.jsp", request, response);
 		}
+	}
+
+	private void generaParte(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("breadcrumb", "Generar Parte Diario");
+		request.setAttribute("body", "generaParte");
+		forwar("template.jsp", request, response);
+		
 	}
 
 	private void agresit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
