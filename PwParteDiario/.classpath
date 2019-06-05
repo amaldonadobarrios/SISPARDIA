@@ -17,15 +17,14 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/botdetect-jsp20-4.0.beta2.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/botdetect-servlet-4.0.beta2.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jstl-1.2.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/ojdbc14-1.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gson-2.8.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/iText-5.0.5.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/ojdbc7.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/EclipseLink 2.5.2">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 			<attribute name="owner.project.facets" value="jpt.jpa"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.datatools.connectivity.jdt.DRIVERLIBRARY/Oracle Thin Driver"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

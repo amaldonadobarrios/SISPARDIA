@@ -298,6 +298,7 @@
 								<option value="7">DESTACADO</option>
 								<option value="8">LICENCIA</option>
 								<option value="9">ADAPTACION A LA VIDA CIVIL</option>
+								<option value="12">DESCANSO MEDICO</option>
 								<option value="10">FALTO</option>
 								<option value="11">DISPONIBLE</option>
 							</select>

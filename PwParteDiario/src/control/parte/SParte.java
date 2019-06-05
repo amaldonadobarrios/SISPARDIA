@@ -3,6 +3,8 @@ package control.parte;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -15,8 +17,10 @@ import javax.servlet.http.HttpSession;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfDocument;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import dao.ParteDiarioDAO;
 import util.GenerarPDF;
 
 /**
@@ -85,7 +89,41 @@ public class SParte extends HttpServlet {
 
 	private void genParte(HttpServletRequest request, HttpServletResponse response, String usuario) throws IOException {
 		GenerarPDF pdf = new GenerarPDF();
-		ByteArrayOutputStream baos = pdf.generarPDF("TITULO", "INFO", "FOOTER", "C:\\demo\\escudopnp.png");
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+		String sqlText = "{call GENERARPARTEDIARIO(?,?)}";
+		//generar rol de servicio
+		ParteDiarioDAO partedao= new ParteDiarioDAO();
+		PdfPTable tabla = null;
+		try {
+			tabla = pdf.generarTabla(partedao.ejecutarProcedimiento_ListaParteDiario(sqlText, usuario));
+			ByteArrayOutputStream baos = pdf.generarPDF("PARTE DIARIO  DEL "+formato.format(new Date()), "INFO", "FOOTER", "C:\\demo\\escudopnp.png",tabla);
+			response.setHeader("Expires", "0");
+			response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
+			response.setHeader("Pragma", "public");
+			response.setContentType("application/pdf");
+			response.setContentLength(baos.size());
+			// write ByteArrayOutputStream to the ServletOutputStream
+//			OutputStream os = response.getOutputStream();
+//			baos.writeTo(os);
+//			os.flush();
+//			os.close();
+			
+			ServletOutputStream sos = null;
+			response.setContentType("application/pdf");
+			response.addHeader("Content-Disposition", "attachment; filename=" + "constancia.pdf");
+			response.setContentLength(baos.size());
+			sos = response.getOutputStream();
+			baos.writeTo(sos);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		ByteArrayOutputStream baos = pdf.generarPDF("PARTE DIARIO  DEL "+formato.format(new Date()), "INFO", "FOOTER", "C:\\demo\\escudopnp.png",tabla);
 		response.setHeader("Expires", "0");
 		response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
 		response.setHeader("Pragma", "public");

@@ -16,6 +16,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import entity.Efectivo;
+import entity.EfectivoSituacion;
 
 public class EfectivoDAO {
 	public boolean grabar(Efectivo efe) {
@@ -52,6 +53,10 @@ public class EfectivoDAO {
 			} else {
 				try {
 					em.persist(efe);
+					if (efe.getIdefectivo()>0) {
+						EfectivoSituacionDAO daosit= new EfectivoSituacionDAO();
+						daosit.grabar(new EfectivoSituacion(0, 1, null, new Date(), efe.getIdefectivo(), 11, 1, "DISPONIBLE", efe.getUsureg()));	
+					}
 				} catch (Exception e) {
 					rpta = false;
 				}
