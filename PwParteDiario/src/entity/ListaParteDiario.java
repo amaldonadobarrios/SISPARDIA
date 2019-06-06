@@ -1,6 +1,6 @@
 package entity;
 
-public class ParteDiario {
+public class ListaParteDiario {
 	@Override
 	public String toString() {
 		return "ParteDiario [area=" + area + ", grado=" + grado + ", apepat=" + apepat + ", apemat=" + apemat
@@ -115,7 +115,7 @@ public class ParteDiario {
 		this.observaciones = observaciones;
 	}
 
-	public ParteDiario() {}
+	public ListaParteDiario() {}
 
 	
 	

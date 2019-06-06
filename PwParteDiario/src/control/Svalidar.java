@@ -84,6 +84,11 @@ public class Svalidar extends HttpServlet {
 						sesion.setAttribute("usuario", u.getIdusuario());
 						sesion.setAttribute("ID", sesion.getId());
 						sesion.setAttribute("CIP", u.getCip());
+						if (Constante.CIPADM.equals(u.getCip())) {
+							sesion.setAttribute("ADM", 1);
+						}else {
+							sesion.setAttribute("ADM", 0);
+						}
 						sesion.setAttribute("User", u);
 						System.out.println("BIENVENIDO AL SISTEMA");
 						request.setAttribute("breadcrumb", "Principal");

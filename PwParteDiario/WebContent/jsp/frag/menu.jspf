@@ -37,9 +37,9 @@
           </a>
           <ul class="treeview-menu" style="display: none;">
             <li><a href="SPage?action=generaParte"><i class="fa fa-circle-o"></i> Generar Parte Diario</a></li>
-            <li><a href="UI/icons.html"><i class="fa fa-circle-o"></i> Consultar Parte Diario</a></li>
-          </ul>
+            </ul>
         </li>
+        <c:if test="${sessionScope.ADM==1}">
         <li class="treeview">
           <a href="#">
             <i class="fa fa-edit"></i> <span>Gestión de Usuarios</span>
@@ -47,20 +47,14 @@
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
+          
           <ul class="treeview-menu" style="display: none;">
             <li><a href="SPage?action=regusu"><i class="fa fa-circle-o"></i> Nuevo Usuario</a></li>
             <li><a href="SPage?action=modusu"><i class="fa fa-circle-o"></i> Actualizar Usuario</a></li>
             <li><a href="SPage?action=listusu"><i class="fa fa-circle-o"></i>Listar Usuario</a></li>
           </ul>
+          	
         </li>           
-        <li>
-          <a href="<%=contexto%>/pages/widgets.html">
-            <i class="fa fa-th"></i> <span>CONSULTAR USUARIO</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-green">new</small>
-            </span>
-          </a>
-        </li>     
-           
+         </c:if>  
       </ul>
     </section>

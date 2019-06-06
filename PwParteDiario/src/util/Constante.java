@@ -8,5 +8,6 @@ public interface Constante
 	public static final String NOMBRE_SISTEMA	="SISPARDIA - PNP";
 	public static final String ENTIDAD_SIGLAS	="PNP";
 	public static final String  clave="2019";
+	public static final String  CIPADM="31424836";
 	
 }

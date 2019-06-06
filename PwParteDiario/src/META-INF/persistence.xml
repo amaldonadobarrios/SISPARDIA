@@ -3,6 +3,7 @@
 	<persistence-unit name="PwParteDiario" transaction-type="RESOURCE_LOCAL">
 		<class>entity.Efectivo</class>
 		<class>entity.EfectivoSituacion</class>
+		<class>entity.Partediario</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
 			<property name="javax.persistence.jdbc.user" value="PARTE"/>

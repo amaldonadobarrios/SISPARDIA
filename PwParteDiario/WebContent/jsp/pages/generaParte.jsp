@@ -114,7 +114,7 @@
 					<input type="hidden" value=getefecip name="action">
 					<div class="form-group">
 						<label><p>Generar Parte Diario  del  dia: <fmt:formatDate pattern = "dd/MM/yyyy"  value = "${now}"/></p></label> 
-						<a type="button" href="SParte?action=genParte" target="_blank" class="btn bg-orange btn-flat margin form-control pull-right">Generar</a>
+						<a type="button" href="SParte?action=genParte"  onclick="refrescar(5000);" target="_blank" class="btn bg-orange btn-flat margin form-control pull-right">Generar</a>
 					</div>
 				</div>	
 		</div>
@@ -131,29 +131,19 @@
 						<tr>
 							<th>Nº</th>
 							<th>FECHA REGISTRO</th>
-							<th>SITUACION</th>
-							<th>FECHA INICIO</th>
-							<th>FECHA FIN</th>
-							<th>RANGO</th>
-							<th>OBSERVACIONES</th>
-							<th>ESTADO</th>
-							<th>VIGENCIA</th>
-							<th>USUARIO REGISTRO</th>
+							<th>FECHA PARTE</th>
+							<th>USUARIO REGISTRA</th>
+							<th>DESCARGAR PARTE</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${lista}" var="element" varStatus="count">
 							<tr>
 								<td>${count.index+1}</td>
-								<td>${element.fechareg}</td>
-								<td>${element.situacion}</td>
-								<td>${element.fini}</td>
-								<td>${element.ffin}</td>
-								<td>${element.rango}</td>
-								<td>${element.obs}</td>
-								<td>${element.estado}</td>
-								<td>${element.vigencia}</td>
+								<td><fmt:formatDate  type = "both"  dateStyle = "short" timeStyle = "short" value = "${element.fechareg}" /></td>
+								<td><fmt:formatDate pattern = "dd/MM/yyyy" value = "${element.fechaparte}" /></td>
 								<td>${element.usureg}</td>
+								<td><a href="SParte?action=conParte&id=${element.idpartediario}"> Descargar</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -177,14 +167,12 @@
 			  frange.style.display = "none";
 		  }
 		}
+	 function refrescar(tiempo){
+		    setTimeout("location.reload(true);", tiempo);
+		  }
 		window.onload = function() {
 			 
-			document.getElementById("grado").value = ${objefe.grado};
-			document.getElementById("area").value = ${objefe.idarea};
-			document.getElementById("cargo").value = ${objefe.idcargo};
-			document.getElementById("jerarquia").value = ${objefe.idjerarquia};
-			document.getElementById("modalidad").value = ${objefe.idmodalidad};
-			document.getElementById("estado").value = ${objefe.estado};
+				 // refrescar(10000);
 		};
 	</script>
 </div>

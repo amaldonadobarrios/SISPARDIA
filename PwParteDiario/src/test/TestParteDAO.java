@@ -3,7 +3,7 @@ package test;
 import java.util.List;
 
 import dao.ParteDiarioDAO;
-import entity.ParteDiario;
+import entity.ListaParteDiario;
 import entity.TempUsu;
 
 public class TestParteDAO {
@@ -13,10 +13,10 @@ public class TestParteDAO {
 		TempUsu  usu= new TempUsu();
 		usu.setUsuario("31424836");
 		String sqlText = "{call GENERARPARTEDIARIO(?,?)}";
-		List<ParteDiario> lista = null;
+		List<ListaParteDiario> lista = null;
 		try {
 			lista = dao.ejecutarProcedimiento_ListaParteDiario(sqlText,"31424836");
-			for (ParteDiario parteDiario : lista) {
+			for (ListaParteDiario parteDiario : lista) {
 				System.out.println(parteDiario.getApemat());
 			}
 		} catch (Exception e) {

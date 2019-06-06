@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.EfectivoDAO;
+import dao.ParteDiarioDAO;
 import dao.UsuarioDAO;
 import entity.Usuario;
 
@@ -101,6 +102,13 @@ public class SPage extends HttpServlet {
 	}
 
 	private void generaParte(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ParteDiarioDAO dao = new ParteDiarioDAO();
+		try {
+			request.setAttribute("lista", dao.GetPartediario());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		request.setAttribute("breadcrumb", "Generar Parte Diario");
 		request.setAttribute("body", "generaParte");
 		forwar("template.jsp", request, response);

@@ -10,55 +10,24 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.ParameterMode;
 import javax.persistence.Persistence;
 import javax.persistence.StoredProcedureQuery;
+import javax.persistence.TypedQuery;
 
-import entity.ParteDiario;
+import entity.Efectivo;
+import entity.EfectivoSituacion;
+import entity.ListaParteDiario;
+import entity.Partediario;
 import oracle.jdbc.OracleTypes;
 
 public class ParteDiarioDAO {
 
 	
-	public List<ParteDiario> generarParteDiario(String usuario) {
-		List<ParteDiario> lista=null;
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PwParteDiario");
-		EntityManager em = emf.createEntityManager();
-		//StoredProcedureQuery storedProcedure = em.createNamedStoredProcedureQuery("GENERARPARTEDIARIO");
-		StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("GENERARPARTEDIARIO");
-		storedProcedure.registerStoredProcedureParameter("P_USUARIO", String.class, ParameterMode.IN);
-		storedProcedure.registerStoredProcedureParameter("P_LISTA", ResultSet.class, ParameterMode.REF_CURSOR);
-		storedProcedure.setParameter("P_USUARIO", usuario);
-		storedProcedure.execute();
-		ResultSet rs = (ResultSet) storedProcedure.getOutputParameterValue("P_LISTA");
-//		try {
-//			lista= new ArrayList<>();
-//			while (rs.next()) {
-//				ParteDiario object = new ParteDiario();	
-//				object.setArea(rs.getString("AREA"));
-//				object.setGrado(rs.getString("GRADO"));
-//				object.setApepat(rs.getString("APEPAT"));
-//				object.setApemat(rs.getString("APEMAT"));
-//				object.setNombres(rs.getString("NOMBRES"));
-//				object.setCargo(rs.getString("CARGO"));
-//				object.setHorario(rs.getString("HORARIO"));
-//				object.setModalidad(rs.getString("MODALIDAD"));
-//				object.setJerarquia(rs.getString("JERARQUIA"));
-//				object.setSituacion(rs.getString("SITUACION"));
-//				object.setRango(rs.getString("RANGO"));
-//				object.setObservaciones(rs.getString("OBSERVACIONES"));
-//				object.setServicio(rs.getString("SERVICIO"));
-//				lista.add(object);
-//
-//			}
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-		return lista;
-	}
-	public List<ParteDiario> ejecutarProcedimiento_ListaParteDiario(String sp_sql, Object... variablea) throws Exception 
+public List<ListaParteDiario> ejecutarProcedimiento_ListaParteDiario(String sp_sql, Object... variablea) throws Exception 
 	{
-		List<ParteDiario> lista=null;
+		List<ListaParteDiario> lista=null;
 		Connection cn = AccesoBD.getConnection();
 		List<Object> tabla = new ArrayList<Object>();
 		System.out.println("antes de conexion");
@@ -86,7 +55,7 @@ public class ParteDiarioDAO {
 			rs = (ResultSet) stmt.getObject(1);
 	         lista= new ArrayList<>();
              while (rs.next()) {
-          		ParteDiario object = new ParteDiario();	
+          		ListaParteDiario object = new ListaParteDiario();	
   				object.setArea(rs.getString("AREA"));
   				object.setGrado(rs.getString("GRADO"));
   				object.setApepat(rs.getString("APEPAT"));
@@ -176,62 +145,51 @@ public class ParteDiarioDAO {
 		}}
 		return tabla;
 }
+	public int grabarParteDiario(Partediario pd) {
+		int rpta = 1;
+		if (pd != null) {
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("PwParteDiario");
+			EntityManager em = emf.createEntityManager();
+			em.getTransaction().begin();
+			try {
+				em.persist(pd);
+			} catch (Exception e) {
+				rpta = 0;
+			} finally {
+				em.getTransaction().commit();
+				em.close();
+				emf.close();
+			}
+		}
+		return rpta;
+	}
+	public List<Partediario> GetPartediario() throws Exception {
+		List<Partediario> c = null;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PwParteDiario");
+		EntityManager em = emf.createEntityManager();
+		try{
+			 TypedQuery<Partediario> query = em.createQuery("SELECT e FROM Partediario e", Partediario.class);
+				 c = (List<Partediario>)query.getResultList(); 
+	    } catch(NoResultException e) {
+	        c= null;
+	    }catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+		return c;
+	}
+	public byte[] DownloadParte(int id_fichero) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PwParteDiario");
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		Partediario u = null;
+		u = em.getReference(Partediario.class, id_fichero);
+		em.getTransaction().commit();
+		em.close();
+		emf.close();
+		return u.getReporte();
+	}
 
-
-public  List<ParteDiario> getProducto(String usuario) throws Exception {
-        
-		List<ParteDiario> lista = null;
-        CallableStatement cs = null;
-        String sqlText = "{call GENERARPARTEDIARIO(?,?)}";
-        Connection conexion = AccesoBD.getConnection();
-        ResultSet rs = null;
-        boolean found = false; 
-        try {
-        	System.out.println("xxx");
-            cs = conexion.prepareCall(sqlText);
-            cs.registerOutParameter(1, OracleTypes.CURSOR);
-            cs.setString(2, usuario);
-            cs.execute();
-            System.out.println("yyy");
-         
-               rs = (ResultSet) cs.getObject(1); 
-               lista= new ArrayList<>();
-               while (rs.next()) {
-            		ParteDiario object = new ParteDiario();	
-    				object.setArea(rs.getString("AREA"));
-    				object.setGrado(rs.getString("GRADO"));
-    				object.setApepat(rs.getString("APEPAT"));
-    				object.setApemat(rs.getString("APEMAT"));
-    				object.setNombres(rs.getString("NOMBRES"));
-    				object.setCargo(rs.getString("CARGO"));
-    				object.setHorario(rs.getString("HORARIO"));
-    				object.setModalidad(rs.getString("MODALIDAD"));
-    				object.setJerarquia(rs.getString("JERARQUIA"));
-    				object.setSituacion(rs.getString("SITUACION"));
-    				object.setRango(rs.getString("RANGO"));
-    				object.setObservaciones(rs.getString("OBSERVACIONES"));
-    				object.setServicio(rs.getString("SERVICIO"));
-    				lista.add(object);
-                        
-                }
-  
-        } catch (SQLException ex) {
-           System.out.println( ex.getMessage());
-            try {
-            	conexion.close();
-            } catch (SQLException ex1) {
-               
-            }
-            lista =null;
-        }finally{
-            try {
-                cs.close();
-                conexion.close();
-            } catch (SQLException ex) {
-                
-            }
-        }
-        return lista;
-    }
 	
 }
