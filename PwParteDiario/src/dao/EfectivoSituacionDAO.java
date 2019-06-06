@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,6 +19,7 @@ import com.google.gson.JsonObject;
 import entity.Efectivo;
 import entity.EfectivoSituacion;
 import entity.ListaSituacionEfectivo;
+import entity.Usuario;
 
 public class EfectivoSituacionDAO {
 	public int grabar(EfectivoSituacion efesit) {
@@ -37,6 +39,34 @@ public class EfectivoSituacionDAO {
 			}
 		}
 		return rpta;
+	}
+	public String ActualizarSituacionesCaducadas() throws Exception {
+		String mensaje = null;
+		String sqlResult = "";
+		Connection con = AccesoBD.getConnection();
+		sqlResult = "UPDATE EFECTIVO_SITUACION SET ESTADO=0 WHERE trunc(FECHAFIN)>=trunc(sysdate) AND ESTADO=1";
+		if (con != null) {
+			try {
+				PreparedStatement ps = con.prepareStatement(sqlResult);
+				int i = ps.executeUpdate();
+				System.out.println("Excectupdate : "+ i);
+				if (i > 0) {
+					con.commit();
+					mensaje = "SE ACTUALIZO";
+				} else {
+					mensaje = "NO EXISTE REGISTRO A ACTUALIZAR";
+				}
+			} catch (SQLException e) {
+				throw new Exception("Problemas del sistema...  ActualizarSituacionesCaducadas" + e.getMessage());
+			} finally {
+				try {
+					con.close();
+				} catch (SQLException ex) {
+				}
+			}
+		}
+
+		return mensaje;
 	}
 	public List<ListaSituacionEfectivo> ListaEfectivoSituacion(String cip) throws Exception {
 		String query = "SELECT \r\n" + 

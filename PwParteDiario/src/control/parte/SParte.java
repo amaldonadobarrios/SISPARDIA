@@ -125,7 +125,7 @@ public class SParte extends HttpServlet {
 		try {
 			String rutaimagenescudo = getServletContext().getRealPath("dist/img/escudopnp.png");
 			tabla = pdf.generarTabla(partedao.ejecutarProcedimiento_ListaParteDiario(sqlText, usuario));
-			ByteArrayOutputStream baos = pdf.generarPDF("PARTE DIARIO  DEL "+fechahoy, "Generado: "+ fechaGenerarParte, "Usuario Registro :"+usuario, rutaimagenescudo,tabla);
+			ByteArrayOutputStream baos = pdf.generarPDF("PARTE DIARIO  DEL DEPARTAMENTO  DE POLICIA JUDICIAL PNP DEL DIA "+fechahoy, "Generado: "+ fechaGenerarParte, "Usuario Registro :"+usuario, rutaimagenescudo,tabla);
 			
 			//recuperar el archivo
 			byte[] reporte = baos.toByteArray();
@@ -141,11 +141,6 @@ public class SParte extends HttpServlet {
 			response.setHeader("Expires", "0");
 			response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
 			response.setHeader("Pragma", "public");
-			// write ByteArrayOutputStream to the ServletOutputStream
-//			OutputStream os = response.getOutputStream();
-//			baos.writeTo(os);
-//			os.flush();
-//			os.close();
 			ServletOutputStream sos = null;
 			response.setContentType("application/pdf");
 			response.addHeader("Content-Disposition", "attachment; filename=" + "ParteDiario"+fechahoypdf+".pdf");

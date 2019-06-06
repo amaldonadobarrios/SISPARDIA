@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.captcha.botdetect.web.servlet.Captcha;
 
+import dao.EfectivoSituacionDAO;
 import dao.UsuarioDAO;
 import entity.Usuario;
 import util.Constante;
@@ -90,6 +91,10 @@ public class Svalidar extends HttpServlet {
 							sesion.setAttribute("ADM", 0);
 						}
 						sesion.setAttribute("User", u);
+						//Actualizar Situaciones caducadas
+						EfectivoSituacionDAO daosit= new EfectivoSituacionDAO();
+						String RptaUpdate=daosit.ActualizarSituacionesCaducadas();
+						System.out.println("Actualizacion de Situaciones : "+RptaUpdate);
 						System.out.println("BIENVENIDO AL SISTEMA");
 						request.setAttribute("breadcrumb", "Principal");
 						request.setAttribute("body", "principal");

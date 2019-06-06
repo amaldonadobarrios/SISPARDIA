@@ -168,7 +168,7 @@ public List<ListaParteDiario> ejecutarProcedimiento_ListaParteDiario(String sp_s
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PwParteDiario");
 		EntityManager em = emf.createEntityManager();
 		try{
-			 TypedQuery<Partediario> query = em.createQuery("SELECT e FROM Partediario e", Partediario.class);
+			 TypedQuery<Partediario> query = em.createQuery("SELECT e FROM Partediario e ORDER BY e.idpartediario DESC", Partediario.class);
 				 c = (List<Partediario>)query.getResultList(); 
 	    } catch(NoResultException e) {
 	        c= null;

@@ -12,7 +12,7 @@ public class AccesoBD {
             String url = "jdbc:oracle:thin:@localhost:1521:XE";
             // obtener la conexion
             cn = DriverManager.getConnection(url, "PARTE", "parte");
-
+            cn.setAutoCommit(false);
         } catch (ClassNotFoundException | SQLException e) {
             throw e;
         }
